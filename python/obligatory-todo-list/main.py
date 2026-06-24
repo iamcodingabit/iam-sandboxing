@@ -18,24 +18,29 @@ def main():
         "clear": 
             {
                 "function": lambda todolist, arg: clearTasks(todolist),
-                "description": "Clear the whole list"
+                "description": "Clear the whole list",
+                
             },
         "add": 
             {
                 "function": lambda todolist, arg: addTask(todolist, arg),
-                "description": "Clear the whole list"
+                "description": "Clear the whole list",
+                "example": "add code the Read class",
             },
         "finish": 
             {
                 "function": lambda todolist, arg: finishTask(todolist, arg),
+                "description": "Clear the whole list"
             },
         "help": 
             {
-                "function": lambda todolist, arg: helpCommands(),
+                "function": lambda todolist, arg: helpCommands(arg),
+                "description": "Clear the whole list"
             },
         "exit":
             {
                 "function": lambda todolist, arg: exitProgram(),
+                "description": "Clear the whole list"
             }
     }
     
@@ -43,20 +48,24 @@ def main():
     print("type 'clear' to clear up the sample")
     
     while True:
-        user_input = input("I want to: ")
+        user_input = input("I want to (type 'help' for command lists): ")
         command_input = processCommand(user_input)
         
         command_function = commands.get(command_input[0])
         
-        if command_function["function"]:
-            result = command_function["function"](todolist, command_input[1])
-            
-            if result is False:
-                break
-        else:
-            print("Invalid command")
-        
+        try:
+            if command_function["function"]:
+                if command_input[0] == "help":
+                    command_input[1] = commands
+                result = command_function["function"](todolist, command_input[1])
+                
+                if result is False:
+                    break
+        except ValueError as e:
+            print(f"Invalid command\n{e}")
+        print()
         displayTasks(todolist)
+        
     
     print("Bye, people!")
     
@@ -82,6 +91,13 @@ def addTask(todolist, task):
 def finishTask(todolist, taskNumber):
     taskIndex = int(taskNumber) - 1
     todolist[taskIndex]["status"] = Status.COMPLETED.value
+
+def helpCommands(commands):
+    for command, attribute in commands.items():
+        example = commands.get("example", "N/A")
+        print(f"- Command Name: {command}")
+        print(f"Description: {attribute["description"]}")
+        print(f"Example: {example}")
 
 def exitProgram():
     return False
