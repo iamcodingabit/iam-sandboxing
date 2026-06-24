@@ -24,23 +24,24 @@ def main():
         "add": 
             {
                 "function": lambda todolist, arg: addTask(todolist, arg),
-                "description": "Clear the whole list",
+                "description": "Add a new task to the least",
                 "example": "add code the Read class",
             },
         "finish": 
             {
                 "function": lambda todolist, arg: finishTask(todolist, arg),
-                "description": "Clear the whole list"
+                "description": "Set a task to completed, using the tasks current number",
+                "example": "finish 2",
             },
         "help": 
             {
                 "function": lambda todolist, arg: helpCommands(arg),
-                "description": "Clear the whole list"
+                "description": "See all commands"
             },
         "exit":
             {
                 "function": lambda todolist, arg: exitProgram(),
-                "description": "Clear the whole list"
+                "description": "Exit the programs"
             }
     }
     
@@ -94,14 +95,15 @@ def finishTask(todolist, taskNumber):
 
 def helpCommands(commands):
     for command, attribute in commands.items():
-        example = commands.get("example", "N/A")
+        description = attribute.get("description", "N/A")
+        example = attribute.get("example", "N/A")
+        
         print(f"- Command Name: {command}")
-        print(f"Description: {attribute["description"]}")
+        print(f"Description: {description}")
         print(f"Example: {example}")
 
 def exitProgram():
     return False
-    
 
 # def helloWorld():
 if __name__ == "__main__":
