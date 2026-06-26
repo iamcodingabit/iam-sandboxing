@@ -35,9 +35,9 @@ def main():
                 print(peek())
             case "empty":
                 if isEmpty():
-                    print("Your array is Empty")
+                    print("Your array is empty")
                 else:
-                    print("Your array is Not Empty")
+                    print("Your array is not empty")
             case "quit":
                 return False
             case _:
