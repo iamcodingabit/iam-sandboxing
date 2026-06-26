@@ -17,8 +17,6 @@ def isEmpty():
 def peek():
     return my_array[-1]
     
-
-
 push(17)
 push(48)
 print(my_array)
