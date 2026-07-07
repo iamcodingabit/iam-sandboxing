@@ -8,7 +8,7 @@ import (
 )
 
 func main(){
-	sentence, err := readUserInput("Enter a string to be processed: ")
+	sentence, err := readInput("Enter a string to be processed: ")
 	if err != nil {
 		fmt.Println("Couldn't process your string!")
 	}
@@ -16,7 +16,7 @@ func main(){
 	processAllString(sentence)
 }
 
-func readUserInput(prompt string) (string, error){
+func readInput(prompt string) (string, error){
 	fmt.Print(prompt)
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -29,6 +29,10 @@ func readUserInput(prompt string) (string, error){
 }
 
 func processAllString(text string){
+	if text == "" {
+		text = "This is the default sentence when you don't write anything"
+	}
+
 	fmt.Println(strings.ToUpper(text))
 	fmt.Println(strings.ToLower(text))
 	fmt.Println(strings.Split(text, " "))
